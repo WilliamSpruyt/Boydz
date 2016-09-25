@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
     private int harryNum = 2;
     private GameThread mGameThread;
     private GameView mGameView;
-
+    private String picFile="blank";
     /**
      * Called when the activity is first created.
      */
@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
         if (bundle != null) {
             georgeNum = bundle.getInt("george");
             harryNum = bundle.getInt("harry");
+            picFile=bundle.getString("pic");
             String stringo = "Yeah HI er..";
             Toast.makeText(this, stringo,
                     Toast.LENGTH_LONG).show();
@@ -144,10 +145,12 @@ public class MainActivity extends Activity {
         if (bundle != null) {
             georgeNum = bundle.getInt("george");
             harryNum = bundle.getInt("harry");
+            picFile= bundle.getString("pic");
             String stringo = "Tap Screen to Populate it";
             Toast.makeText(this, stringo,
                     Toast.LENGTH_LONG).show();
             mGameThread.setState(georgeNum,harryNum);
+            mGameThread.setScore(picFile);
         }
     }
 
@@ -203,6 +206,7 @@ public class MainActivity extends Activity {
         startActivity(i);
 
     }
+
 
 }
 

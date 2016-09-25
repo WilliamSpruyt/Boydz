@@ -67,13 +67,13 @@ public class Body {
             xpos = 0 - (2 * rad);
         }
         if (ypos > height + (2 * rad)) {
-            ypos = 0 - (2 * rad);
+            /*ypos = 0 - (2 * rad);*/
         }
         if (xpos < 0 - (2 * rad)) {
             xpos = width + (2 * rad);
         }
         if (ypos < 0 - (2 * rad)) {
-            ypos = height + (2 * rad);
+           /* ypos = height + (2 * rad);*/
         }
     }
 

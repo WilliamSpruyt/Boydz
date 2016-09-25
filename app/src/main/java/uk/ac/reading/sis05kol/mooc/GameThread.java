@@ -51,7 +51,7 @@ public abstract class GameThread extends Thread {
 	protected Bitmap mBackgroundImage;
 	
 	protected long score = 0;
-
+	private String filePic="blank";
     //Used for time keeping
 	private long now;
 	private float elapsed;
@@ -102,7 +102,7 @@ public abstract class GameThread extends Thread {
 
 			setState(STATE_RUNNING);
 			
-			setScore(0);
+
 		}
 	}
 	
@@ -140,9 +140,12 @@ public abstract class GameThread extends Thread {
 			mCanvasHeight = height;
 
 			// don't forget to resize the background image
-			mBackgroundImage = Bitmap.createScaledBitmap(mBackgroundImage, width, height, true);
-		}
-	}
+			if (filePic.equals("blank")||filePic==null){
+			mBackgroundImage = Bitmap.createScaledBitmap(mBackgroundImage, width, height, true);}
+
+		else {mBackgroundImage=setPic(filePic);
+                }
+	}}
 
 
 	protected void doDraw(Canvas canvas) {
@@ -317,8 +320,8 @@ public abstract class GameThread extends Thread {
 	
 	//Send a score to the View to view 
 	//Would it be better to do this inside this thread writing it manually on the screen?
-	public void setScore(long score) {
-		this.score = score;
+	public void setScore(String score) {
+		this.filePic = score;
 		
 		synchronized (monitor) {
 			Message msg = mHandler.obtainMessage();
@@ -335,7 +338,7 @@ public abstract class GameThread extends Thread {
 	}
 	
 	public void updateScore(long score) {
-		this.setScore(this.score + score);
+
 	}
 	
 	
@@ -347,6 +350,29 @@ public abstract class GameThread extends Thread {
 
     public int getHarryNum(){return harryNum;}
     public int getGeorgeNum(){return georgeNum;}
+	private Bitmap setPic(String mCurrentPhotoPath) {
+		// Get the dimensions of the View
+		int targetW = mBackgroundImage.getWidth();
+		int targetH = mBackgroundImage.getHeight();
+
+		// Get the dimensions of the bitmap
+		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+		bmOptions.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+		int photoW = bmOptions.outWidth;
+		int photoH = bmOptions.outHeight;
+
+		// Determine how much to scale down the image
+		int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+		// Decode the image file into a Bitmap sized to fill the View
+		bmOptions.inJustDecodeBounds = false;
+		bmOptions.inSampleSize = scaleFactor;
+		bmOptions.inPurgeable = true;
+
+		Bitmap backmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+		return backmap;
+	}
 }
 
 // This file is part of the course "Begin Programming: Build your first mobile game" from futurelearn.com
