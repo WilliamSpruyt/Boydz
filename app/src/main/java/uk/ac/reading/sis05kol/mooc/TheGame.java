@@ -228,20 +228,32 @@ public class TheGame extends GameThread {
         for (int i = 0; i < body.length; i++) {
 
 
-            if (body[i].getName()=="Harry" ) {
+            if (body[i].getName()=="Harry"&& mode !=1  ) {
                 if (body[i].getVelx()<0){
                 body[i].display(canvas, harryWalkers[imind/4]);}
                 if (body[i].getVelx()>0){
                     body[i].display(canvas, harryWalkersin[imind/4]);}
 
             }
-            if (body[i].getName()=="George" ) {
+            if (body[i].getName()=="George"&& mode !=1 ) {
                 if (body[i].getVelx()<0){
                     body[i].display(canvas, georgeWalkersin[imind/4]);}
                 if (body[i].getVelx()>0){
                     body[i].display(canvas, georgeWalkers[imind/4]);};
             }
+            if (body[i].getName()=="Harry"&& mode ==1  ) {
+                if (body[i].getXdeltafordisco()>0){
+                    body[i].display(canvas, harryWalkers[imind/4]);}
+                if (body[i].getXdeltafordisco()<0){
+                    body[i].display(canvas, harryWalkersin[imind/4]);}
 
+            }
+            if (body[i].getName()=="George"&& mode ==1 ) {
+                if (body[i].getXdeltafordisco()>0){
+                    body[i].display(canvas, georgeWalkersin[imind/4]);}
+                if (body[i].getXdeltafordisco()<0){
+                    body[i].display(canvas, georgeWalkers[imind/4]);};
+            }
             //if (Mode!=1){body[i].counter_getter(mCanvasWidth,mCanvasHeight);}
             body[i].calming();
 
